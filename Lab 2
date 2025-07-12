@@ -1,0 +1,40 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <cstring>
+
+using namespace std;
+
+struct Asignatura {
+    char codigo_asignatura[8];   // 7 chars + null terminator
+    char nombre_asignatura[21];  // 20 chars + null terminator
+};
+
+int main() {
+    Asignatura asignaturas[5] = {
+        {"MC2131", "Dibujo Mecánico"},
+        {"PS4313", "Sistemas de Control"},
+        {"MA2112", "Matemáticas V"},
+        {"CI2125", "Computación"},
+        {"QM1121", "Química General"}
+    };
+
+    ofstream archivo("asignaturas.txt");
+    if (!archivo) {
+        cerr << "No se pudo crear el archivo.\n";
+        return 1;
+    }
+
+    archivo << left << setw(8) << "Código" << setw(21) << "Nombre" << endl;
+    archivo << "----------------------------------------" << endl;
+
+    for (int i = 0; i < 5; ++i) {
+        archivo << left << setw(8) << asignaturas[i].codigo_asignatura
+                << setw(21) << asignaturas[i].nombre_asignatura << endl;
+    }
+
+    archivo.close();
+    cout << "Archivo 'asignaturas.txt' creado exitosamente." << endl;
+
+    return 0;
+}
